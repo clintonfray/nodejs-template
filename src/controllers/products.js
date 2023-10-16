@@ -1,6 +1,9 @@
 const products = require('../data.js')
+const sequelize = require('../config/database.js');
 
-const getProducts = ((req, res) => {
+const getProducts = (async (req, res) => {
+    const [results, metadata] = await sequelize.query("select * from users");
+    console.log(results)
     res.json(products)
 })
 

@@ -1,3 +1,7 @@
+require('dotenv').config()
+require('./config/appdynamics.js');
+
+
 const express = require('express');
 const cors = require('cors')
 const helmet = require("helmet");
@@ -5,6 +9,7 @@ const morgan = require("morgan")
 const rateLimit = require("express-rate-limit")
 
 const productRoutes = require('./routes/products.js')
+const healthRoutes = require('./routes/health.js')
 
 
 const limiter = rateLimit({
@@ -22,7 +27,7 @@ const db = require("./config/database");
 
 
 app = express();
-port = 3000;
+port = 8088;
 
 
 
@@ -33,6 +38,12 @@ app.use(cors());
 app.use(limiter);
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
+
+/**
+ * Liveness Probe
+ **/
+app.use('/health', (req, res)=>res.send('Healthj OK'));
+
 
 /**
  * Application Routes
@@ -59,7 +70,7 @@ const initApp = async () => {
         /**
          * Start the web server on the specified port.
          */
-        app.listen(port, () => {
+        app.listen(port, '0.0.0.0',() => {
             console.log(`Server is up and running at: http://localhost:${port}`);
         });
     } catch (error) {
