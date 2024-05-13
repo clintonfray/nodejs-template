@@ -1,5 +1,5 @@
 require('dotenv').config()
-require('./config/appdynamics.js');
+// require('./config/appdynamics.js');
 
 
 const express = require('express');
@@ -9,8 +9,6 @@ const morgan = require("morgan")
 const rateLimit = require("express-rate-limit")
 
 const productRoutes = require('./routes/products.js')
-const healthRoutes = require('./routes/health.js')
-
 
 const limiter = rateLimit({
     windowMs: 60 * 1000, // 1 minute
@@ -18,18 +16,13 @@ const limiter = rateLimit({
     message: "Too many connections from this IP, please try again after a minute"
 });
 
-
 /**
  * Import the database connection file.
  */
 const db = require("./config/database");
 
-
-
 app = express();
-port = 8088;
-
-
+env = process.env;
 
 // Middleware
 app.use(morgan("common")) //just for logs
@@ -42,7 +35,7 @@ app.use(express.json());
 /**
  * Liveness Probe
  **/
-app.use('/health', (req, res)=>res.send('Healthj OK'));
+app.use('/health', (req, res)=>res.send('Health OK'));
 
 
 /**
@@ -50,7 +43,6 @@ app.use('/health', (req, res)=>res.send('Healthj OK'));
  **/
 
 app.use('/api/products', productRoutes);
-
 
 
 /**
@@ -70,7 +62,7 @@ const initApp = async () => {
         /**
          * Start the web server on the specified port.
          */
-        app.listen(port, '0.0.0.0',() => {
+        app.listen(env.PORT || 8088, env.HOST, () => {
             console.log(`Server is up and running at: http://localhost:${port}`);
         });
     } catch (error) {

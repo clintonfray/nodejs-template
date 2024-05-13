@@ -15,7 +15,7 @@ const sequelize = new Sequelize(process.env.DATABASE_NAME, process.env.DATABASE_
 
 /**
  * AppDynamics Hook
- */
+
 
 sequelize.addHook('afterConnect', function(conn, config) {
     var agent = appd.__agent;
@@ -78,6 +78,8 @@ sequelize.addHook('afterConnect', function(conn, config) {
        return old.call(this, cmd);
     };
  });
+
+  */
 
 /**
  * Export the Sequelize instance. This instance can now be 
