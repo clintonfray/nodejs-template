@@ -19,7 +19,7 @@ const limiter = rateLimit({
 /**
  * Import the database connection file.
  */
-const db = require("./config/database");
+// const db = require("./config/database");
 
 app = express();
 env = process.env;
@@ -56,8 +56,8 @@ const initApp = async () => {
      * You can use the .authenticate() function to test if the connection works.
      */
     try {
-        await db.authenticate();
-        console.log("Connection has been established successfully.");
+        // await db.authenticate();
+        // console.log("Connection has been established successfully.");
 
         /**
          * Start the web server on the specified port.

@@ -2,7 +2,7 @@
  * Import Sequelize.
  */
 const Sequelize = require("sequelize");
-const appd = require('./appdynamics.js');
+// const appd = require('./appdynamics.js');
 
 /**
  * Create a Sequelize instance. This can be done by passing
