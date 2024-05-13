@@ -62,7 +62,9 @@ const initApp = async () => {
         /**
          * Start the web server on the specified port.
          */
-        app.listen(env.PORT || 8088, env.HOST, () => {
+        port = env.PORT || 8088;
+        
+        app.listen(port, env.HOST, () => {
             console.log(`Server is up and running at: http://localhost:${port}`);
         });
     } catch (error) {
